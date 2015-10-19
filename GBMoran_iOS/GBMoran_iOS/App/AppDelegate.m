@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "GBMMyViewController.h"
-
+#import "GBMLoginViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -19,6 +19,7 @@
 - (void)loadMainViewWithController:(UIViewController *)controller
 {
     UIViewController *squareVC = [[UIViewController alloc] init];
+    squareVC.view.backgroundColor = [UIColor whiteColor];
     UINavigationController *squareNavigation = [[UINavigationController alloc] initWithRootViewController:squareVC];
     squareNavigation.navigationBar.barTintColor = [[UIColor alloc] initWithRed:230/250.0
                                                                          green:106/250.0
@@ -32,8 +33,17 @@
     myVC.tabBarItem.title = @"我的";
     myVC.tabBarItem.image = [UIImage imageNamed:@"my"];
     
-    squareVC.tabBarController.viewControllers = @[squareNavigation,myVC];
     
+    UITabBarController *tabBarC = [[UITabBarController alloc] init];
+    tabBarC.viewControllers = @[squareNavigation,myVC];
+    
+    self.window.rootViewController = tabBarC;
+    
+    CGFloat viewWidth = self.window.bounds.size.width;
+    UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(viewWidth/2-60, -25, 120, 50)];
+    [photoButton setImage:[UIImage imageNamed:@"publish"] forState:UIControlStateNormal];
+    [photoButton addTarget:self action:@selector(addOrderView) forControlEvents:UIControlEventTouchUpInside];
+    [tabBarC.tabBar addSubview:photoButton];
     
 }
 
