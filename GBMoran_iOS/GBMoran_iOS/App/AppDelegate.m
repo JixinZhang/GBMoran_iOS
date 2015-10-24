@@ -9,12 +9,26 @@
 #import "AppDelegate.h"
 #import "GBMMyViewController.h"
 #import "GBMLoginViewController.h"
-@interface AppDelegate ()
+
+#define viewWidth self.window.frame.size.width
+#define viewHeight self.window.frame.size.height
+
+@interface AppDelegate ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+
+@property (nonatomic,strong)UITabBarController *tabBarController;
+@property (nonatomic,strong)UIImagePickerController *pickerController;
+
 
 @end
 
 @implementation AppDelegate
 
+- (void)loadLoginView
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GBMLoginAndRegister" bundle:[NSBundle mainBundle]];
+    self.loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginStoryboard"];
+    self.window.rootViewController = self.loginViewController;
+}
 
 - (void)loadMainViewWithController:(UIViewController *)controller
 {
@@ -39,7 +53,6 @@
     
     self.window.rootViewController = tabBarC;
     
-    CGFloat viewWidth = self.window.bounds.size.width;
     UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(viewWidth/2-60, -25, 120, 50)];
     [photoButton setImage:[UIImage imageNamed:@"publish"] forState:UIControlStateNormal];
     [photoButton addTarget:self action:@selector(addOrderView) forControlEvents:UIControlEventTouchUpInside];
@@ -47,7 +60,15 @@
     
 }
 
-
+- (void)addOrderView
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消"
+                                         destructiveButtonTitle:nil
+                                              otherButtonTitles:@"拍照",@"从手机相册选择", nil];
+    [sheet showInView:self.tabBarController.view];
+}
 
 
 

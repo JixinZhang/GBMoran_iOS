@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GBMMyViewController : UIViewController
+@interface GBMMyViewController : UITableViewController
+
+@property (weak, nonatomic) IBOutlet UIImageView *headImageView;
+@property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 
 @end

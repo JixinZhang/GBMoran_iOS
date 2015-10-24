@@ -11,6 +11,8 @@
 #import "GBMLoginRequest.h"
 #import "GBMRegisterViewController.h"
 #import "AppDelegate.h"
+#import "GBMGlobal.h"
+#import "GBMGetImage.h"
 
 @interface GBMLoginViewController () <GBMLoginRequestDelegate>
 @property (nonatomic,strong) GBMLoginRequest *loginRequest;
@@ -92,7 +94,7 @@
     GBMRegisterViewController *registerVC = [[GBMRegisterViewController alloc] init];
     [self presentViewController:registerVC animated:YES completion:nil];
     NSLog(@"响应注册");
-    NSLog(@"%@",registerVC.view);
+    
 }
 
 
@@ -118,13 +120,10 @@
         NSLog(@"登陆成功，现在转换页面");
         AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [appDelegate loadMainViewWithController:self];
-        
-        
-        
-//        缺少将user转换为全局变量的命令
-//        [GBMGlobal shareGloal].user = user;
-        
-        
+        [GBMGlobal shareGlobal].user = user;
+        [GBMGlobal shareGlobal].user.email = self.userNameTextField.text;
+        GBMGetImage *getImage = [[GBMGetImage alloc] init];
+        [getImage sendGetImageRequset];
         
         
         
