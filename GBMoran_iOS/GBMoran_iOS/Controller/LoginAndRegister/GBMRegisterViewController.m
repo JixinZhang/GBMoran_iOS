@@ -55,8 +55,6 @@
 - (IBAction)loginButtonClicked:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    GBMLoginViewController *loginVC = [[GBMLoginViewController alloc] init];
-    [self presentViewController:loginVC animated:YES completion:nil];
 }
 
 #pragma mark - 回收键盘

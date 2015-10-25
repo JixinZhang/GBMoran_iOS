@@ -60,10 +60,10 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 2) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确定注销吗?" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确定注销吗？" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *enterAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
                 [self dismissViewControllerAnimated:YES completion:nil];
-                [GBMGlobal shareGlobal].user = nil;
+                [GBMGlobal shareGlobal].user=nil;
                 AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
                 [appDelegate loadLoginView];
             }];
@@ -71,8 +71,10 @@
             [alert addAction:enterAction];
             [alert addAction:cancelAction];
             [self presentViewController:alert animated:true completion:nil];
+            
         }
     }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

@@ -91,8 +91,7 @@
 #pragma mark - 注册按钮的响应事件
 - (IBAction)registerButtonClicked:(id)sender
 {
-    GBMRegisterViewController *registerVC = [[GBMRegisterViewController alloc] init];
-    [self presentViewController:registerVC animated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     NSLog(@"响应注册");
     
 }

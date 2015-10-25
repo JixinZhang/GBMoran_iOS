@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "GBMMyViewController.h"
 #import "GBMLoginViewController.h"
+#import "GBMSquareViewController.h"
+
 
 #define viewWidth self.window.frame.size.width
 #define viewHeight self.window.frame.size.height
@@ -32,31 +34,37 @@
 
 - (void)loadMainViewWithController:(UIViewController *)controller
 {
-    UIViewController *squareVC = [[UIViewController alloc] init];
-    squareVC.view.backgroundColor = [UIColor whiteColor];
-    UINavigationController *squareNavigation = [[UINavigationController alloc] initWithRootViewController:squareVC];
-    squareNavigation.navigationBar.barTintColor = [[UIColor alloc] initWithRed:230/250.0
-                                                                         green:106/250.0
-                                                                          blue:58/250.0 alpha:1];
+    UIStoryboard *squareStoryboard = [UIStoryboard storyboardWithName:@"GBMSquare" bundle:[NSBundle mainBundle]];
+    GBMSquareViewController *squareVC = [squareStoryboard instantiateViewControllerWithIdentifier:@"SquareStoryboard"];
+    UINavigationController *nav1 = [[UINavigationController alloc]initWithRootViewController:squareVC];
+    nav1.navigationBar.barTintColor = [[UIColor alloc]initWithRed:230/255.0 green:106/255.0 blue:58/255.0 alpha:1];
     
-    squareNavigation.tabBarItem.title = @"广场";
-    squareNavigation.tabBarItem.image = [UIImage imageNamed:@"square"];
+    nav1.tabBarItem.title = @"广场";
+    nav1.tabBarItem.image = [UIImage imageNamed:@"square"];
     
-    UIStoryboard *myStoryboard = [UIStoryboard storyboardWithName:@"GBMMy" bundle:[NSBundle mainBundle]];
+    UIStoryboard *myStoryboard
+    = [UIStoryboard storyboardWithName:@"GBMMy" bundle:[NSBundle mainBundle]];
     GBMMyViewController *myVC = [myStoryboard instantiateViewControllerWithIdentifier:@"MyStoryboard"];
     myVC.tabBarItem.title = @"我的";
     myVC.tabBarItem.image = [UIImage imageNamed:@"my"];
     
+    self.tabBarController = [[UITabBarController alloc] init];
+    self.tabBarController.viewControllers = @[ nav1,myVC];
     
-    UITabBarController *tabBarC = [[UITabBarController alloc] init];
-    tabBarC.viewControllers = @[squareNavigation,myVC];
+    // 添加切换页面的动画效果
+    [controller presentViewController:self.tabBarController animated:YES completion:nil];
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         self.loginViewController.view.alpha = 0;
+                     }
+                     completion:^(BOOL finished){
+                         self.loginViewController = nil;
+                     }];
     
-    self.window.rootViewController = tabBarC;
-    
-    UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(viewWidth/2-60, -25, 120, 50)];
+    UIButton *photoButton = [[UIButton alloc]initWithFrame:CGRectMake(viewWidth/2-60, -25, 120, 50)];
     [photoButton setImage:[UIImage imageNamed:@"publish"] forState:UIControlStateNormal];
     [photoButton addTarget:self action:@selector(addOrderView) forControlEvents:UIControlEventTouchUpInside];
-    [tabBarC.tabBar addSubview:photoButton];
+    [self.tabBarController.tabBar addSubview:photoButton];
     
 }
 
