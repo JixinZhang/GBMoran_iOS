@@ -60,10 +60,14 @@
 		78600EEF1BDD0A83006E6653 /* GBMViewDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78600EEE1BDD0A83006E6653 /* GBMViewDetailModel.m */; };
 		78600EF21BDD0BC0006E6653 /* UIColor+AddColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 78600EF11BDD0BC0006E6653 /* UIColor+AddColor.m */; };
 		78600EF51BDD0C05006E6653 /* GBMCommentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78600EF41BDD0C05006E6653 /* GBMCommentListCell.m */; };
+		787BBB451BE268DB00918123 /* GBMPublishCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 787BBB431BE268DB00918123 /* GBMPublishCell.m */; };
+		787BBB461BE268DB00918123 /* GBMPublishCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 787BBB441BE268DB00918123 /* GBMPublishCell.xib */; };
 		789158391BD20DC500FB43C1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 789158381BD20DC500FB43C1 /* main.m */; };
 		789158441BD20DC500FB43C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 789158431BD20DC500FB43C1 /* Images.xcassets */; };
 		789158471BD20DC500FB43C1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 789158451BD20DC500FB43C1 /* LaunchScreen.xib */; };
 		789158531BD20DC500FB43C1 /* GBMoran_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 789158521BD20DC500FB43C1 /* GBMoran_iOSTests.m */; };
+		7895AA3F1BDFB829000C1EDF /* GBMPublish.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7895AA3E1BDFB829000C1EDF /* GBMPublish.storyboard */; };
+		7895AA421BDFC3ED000C1EDF /* GBMPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7895AA411BDFC3ED000C1EDF /* GBMPublishViewController.m */; };
 		78C8C7A91BD3D34E00382474 /* GBMMy.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78C8C7A81BD3D34E00382474 /* GBMMy.storyboard */; };
 		78C8C7AC1BD3D7D300382474 /* GBMMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C8C7AB1BD3D7D300382474 /* GBMMyViewController.m */; };
 		78D17B981BD9289D005B98FD /* GBMNickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D17B971BD9289D005B98FD /* GBMNickNameViewController.m */; };
@@ -83,6 +87,9 @@
 		78ECB8AC1BD2716D0015B84E /* GBMLoginRequestParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78ECB8AB1BD2716D0015B84E /* GBMLoginRequestParser.m */; };
 		78ECB8AE1BD27C670015B84E /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78ECB8AD1BD27C670015B84E /* Register.storyboard */; };
 		78ECB8B11BD28FCE0015B84E /* GBMRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78ECB8B01BD28FCE0015B84E /* GBMRegisterViewController.m */; };
+		78F4107F1BE7A5990094E2D5 /* GBMPublishRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F4107E1BE7A5990094E2D5 /* GBMPublishRequest.m */; };
+		78F410821BE7A5B60094E2D5 /* GBMPublishRequestParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F410811BE7A5B60094E2D5 /* GBMPublishRequestParser.m */; };
+		78F410851BE7B21E0094E2D5 /* GBMPublishModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F410841BE7B21E0094E2D5 /* GBMPublishModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +207,9 @@
 		78600EF11BDD0BC0006E6653 /* UIColor+AddColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AddColor.m"; sourceTree = "<group>"; };
 		78600EF31BDD0C05006E6653 /* GBMCommentListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBMCommentListCell.h; sourceTree = "<group>"; };
 		78600EF41BDD0C05006E6653 /* GBMCommentListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBMCommentListCell.m; sourceTree = "<group>"; };
+		787BBB421BE268DB00918123 /* GBMPublishCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBMPublishCell.h; sourceTree = "<group>"; };
+		787BBB431BE268DB00918123 /* GBMPublishCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBMPublishCell.m; sourceTree = "<group>"; };
+		787BBB441BE268DB00918123 /* GBMPublishCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GBMPublishCell.xib; sourceTree = "<group>"; };
 		789158331BD20DC500FB43C1 /* GBMoran_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GBMoran_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		789158371BD20DC500FB43C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		789158381BD20DC500FB43C1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -208,6 +218,9 @@
 		7891584C1BD20DC500FB43C1 /* GBMoran_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GBMoran_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		789158511BD20DC500FB43C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		789158521BD20DC500FB43C1 /* GBMoran_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GBMoran_iOSTests.m; sourceTree = "<group>"; };
+		7895AA3E1BDFB829000C1EDF /* GBMPublish.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GBMPublish.storyboard; sourceTree = "<group>"; };
+		7895AA401BDFC3ED000C1EDF /* GBMPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBMPublishViewController.h; sourceTree = "<group>"; };
+		7895AA411BDFC3ED000C1EDF /* GBMPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBMPublishViewController.m; sourceTree = "<group>"; };
 		78C8C7A81BD3D34E00382474 /* GBMMy.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GBMMy.storyboard; sourceTree = "<group>"; };
 		78C8C7AA1BD3D7D300382474 /* GBMMyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBMMyViewController.h; sourceTree = "<group>"; };
 		78C8C7AB1BD3D7D300382474 /* GBMMyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBMMyViewController.m; sourceTree = "<group>"; };
@@ -242,6 +255,12 @@
 		78ECB8AD1BD27C670015B84E /* Register.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Register.storyboard; sourceTree = "<group>"; };
 		78ECB8AF1BD28FCE0015B84E /* GBMRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBMRegisterViewController.h; sourceTree = "<group>"; };
 		78ECB8B01BD28FCE0015B84E /* GBMRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBMRegisterViewController.m; sourceTree = "<group>"; };
+		78F4107D1BE7A5990094E2D5 /* GBMPublishRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBMPublishRequest.h; sourceTree = "<group>"; };
+		78F4107E1BE7A5990094E2D5 /* GBMPublishRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBMPublishRequest.m; sourceTree = "<group>"; };
+		78F410801BE7A5B60094E2D5 /* GBMPublishRequestParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBMPublishRequestParser.h; sourceTree = "<group>"; };
+		78F410811BE7A5B60094E2D5 /* GBMPublishRequestParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBMPublishRequestParser.m; sourceTree = "<group>"; };
+		78F410831BE7B21E0094E2D5 /* GBMPublishModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBMPublishModel.h; sourceTree = "<group>"; };
+		78F410841BE7B21E0094E2D5 /* GBMPublishModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBMPublishModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +284,8 @@
 		78600E451BDCB3FD006E6653 /* Publish */ = {
 			isa = PBXGroup;
 			children = (
+				7895AA401BDFC3ED000C1EDF /* GBMPublishViewController.h */,
+				7895AA411BDFC3ED000C1EDF /* GBMPublishViewController.m */,
 			);
 			path = Publish;
 			sourceTree = "<group>";
@@ -313,6 +334,8 @@
 		78600E601BDCBCF8006E6653 /* Publish */ = {
 			isa = PBXGroup;
 			children = (
+				78F410831BE7B21E0094E2D5 /* GBMPublishModel.h */,
+				78F410841BE7B21E0094E2D5 /* GBMPublishModel.m */,
 			);
 			path = Publish;
 			sourceTree = "<group>";
@@ -642,6 +665,9 @@
 				78600EDE1BDCCC67006E6653 /* GBMSquareCell.m */,
 				78600EF31BDD0C05006E6653 /* GBMCommentListCell.h */,
 				78600EF41BDD0C05006E6653 /* GBMCommentListCell.m */,
+				787BBB421BE268DB00918123 /* GBMPublishCell.h */,
+				787BBB431BE268DB00918123 /* GBMPublishCell.m */,
+				787BBB441BE268DB00918123 /* GBMPublishCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -654,6 +680,7 @@
 				78C8C7A81BD3D34E00382474 /* GBMMy.storyboard */,
 				78600E431BDCAF24006E6653 /* GBMSquare.storyboard */,
 				78600EE31BDD0504006E6653 /* GBMViewDetail.storyboard */,
+				7895AA3E1BDFB829000C1EDF /* GBMPublish.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -679,6 +706,8 @@
 				78600E6C1BDCBF4E006E6653 /* GBMSquareRequestParser.m */,
 				78600EE91BDD0982006E6653 /* GBMViewDetailParser.h */,
 				78600EEA1BDD0982006E6653 /* GBMViewDetailParser.m */,
+				78F410801BE7A5B60094E2D5 /* GBMPublishRequestParser.h */,
+				78F410811BE7A5B60094E2D5 /* GBMPublishRequestParser.m */,
 			);
 			path = Parsers;
 			sourceTree = "<group>";
@@ -686,6 +715,7 @@
 		78ECB89E1BD2415A0015B84E /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				78F4107C1BE7A5740094E2D5 /* Publish */,
 				78E7DA661BDB7A6500484726 /* LoginAndRegister */,
 				78E7DA6B1BDB7A6500484726 /* My */,
 				78E7DA6C1BDB7A6500484726 /* Square */,
@@ -700,6 +730,15 @@
 				78ECB8A41BD243340015B84E /* BLMultipartForm.m */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		78F4107C1BE7A5740094E2D5 /* Publish */ = {
+			isa = PBXGroup;
+			children = (
+				78F4107D1BE7A5990094E2D5 /* GBMPublishRequest.h */,
+				78F4107E1BE7A5990094E2D5 /* GBMPublishRequest.m */,
+			);
+			path = Publish;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -746,11 +785,12 @@
 		7891582B1BD20DC500FB43C1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = JixinZhang;
 				TargetAttributes = {
 					789158321BD20DC500FB43C1 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 8X3KFA2B54;
 					};
 					7891584B1BD20DC500FB43C1 = {
 						CreatedOnToolsVersion = 6.4;
@@ -790,7 +830,9 @@
 				78ECB8AE1BD27C670015B84E /* Register.storyboard in Resources */,
 				78600EE41BDD0504006E6653 /* GBMViewDetail.storyboard in Resources */,
 				78C8C7A91BD3D34E00382474 /* GBMMy.storyboard in Resources */,
+				787BBB461BE268DB00918123 /* GBMPublishCell.xib in Resources */,
 				78600EA91BDCC64F006E6653 /* MJRefresh.bundle in Resources */,
+				7895AA3F1BDFB829000C1EDF /* GBMPublish.storyboard in Resources */,
 				78600E441BDCAF24006E6653 /* GBMSquare.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -813,6 +855,8 @@
 				78600E521BDCB6C0006E6653 /* GBMSquareViewController.m in Sources */,
 				78600EAE1BDCC64F006E6653 /* MJRefreshBackFooter.m in Sources */,
 				78600EB01BDCC64F006E6653 /* MJRefreshBackNormalFooter.m in Sources */,
+				78F410851BE7B21E0094E2D5 /* GBMPublishModel.m in Sources */,
+				78F4107F1BE7A5990094E2D5 /* GBMPublishRequest.m in Sources */,
 				78600EF51BDD0C05006E6653 /* GBMCommentListCell.m in Sources */,
 				78600EDA1BDCC71B006E6653 /* UIScrollView+MJRefresh.m in Sources */,
 				78600EAD1BDCC64F006E6653 /* MJRefreshAutoStateFooter.m in Sources */,
@@ -852,6 +896,7 @@
 				78ECB8981BD2177B0015B84E /* GBMLoginViewController.m in Sources */,
 				78E7DA651BDB76C200484726 /* GBMGlobal.m in Sources */,
 				78ECB8AC1BD2716D0015B84E /* GBMLoginRequestParser.m in Sources */,
+				7895AA421BDFC3ED000C1EDF /* GBMPublishViewController.m in Sources */,
 				78E7DA6E1BDB7A6500484726 /* GBMRegisterRequest.m in Sources */,
 				78600EB71BDCC64F006E6653 /* MJRefreshNormalHeader.m in Sources */,
 				78600EBF1BDCC64F006E6653 /* SDWebImagePrefetcher.m in Sources */,
@@ -859,6 +904,7 @@
 				78600E671BDCBDDB006E6653 /* GBMSquareModel.m in Sources */,
 				78600E701BDCBFE1006E6653 /* GBMPictureModel.m in Sources */,
 				78600ED41BDCC71B006E6653 /* UIImage+GIF.m in Sources */,
+				78F410821BE7A5B60094E2D5 /* GBMPublishRequestParser.m in Sources */,
 				78ECB8911BD2101C0015B84E /* AppDelegate.m in Sources */,
 				78600EB51BDCC64F006E6653 /* MJRefreshGifHeader.m in Sources */,
 				78E7DA7A1BDB8F9000484726 /* GBMHomePageViewController.m in Sources */,
@@ -872,6 +918,7 @@
 				78600EB21BDCC64F006E6653 /* MJRefreshComponent.m in Sources */,
 				78600EAA1BDCC64F006E6653 /* MJRefreshAutoFooter.m in Sources */,
 				78600EF21BDD0BC0006E6653 /* UIColor+AddColor.m in Sources */,
+				787BBB451BE268DB00918123 /* GBMPublishCell.m in Sources */,
 				78600EDC1BDCC71B006E6653 /* UIView+WebCacheOperation.m in Sources */,
 				78600EA81BDCC64F006E6653 /* KxMenu.m in Sources */,
 			);
@@ -929,6 +976,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -944,7 +992,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -981,7 +1029,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -992,8 +1040,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = GBMoran_iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zjixin.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1002,8 +1053,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = GBMoran_iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zjixin.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1022,6 +1076,7 @@
 				);
 				INFOPLIST_FILE = GBMoran_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zjixin.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GBMoran_iOS.app/GBMoran_iOS";
 			};
@@ -1037,6 +1092,7 @@
 				);
 				INFOPLIST_FILE = GBMoran_iOSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zjixin.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GBMoran_iOS.app/GBMoran_iOS";
 			};

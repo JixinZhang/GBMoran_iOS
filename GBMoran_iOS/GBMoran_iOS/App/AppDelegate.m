@@ -10,7 +10,7 @@
 #import "GBMMyViewController.h"
 #import "GBMLoginViewController.h"
 #import "GBMSquareViewController.h"
-
+#import "GBMPublishViewController.h"
 
 #define viewWidth self.window.frame.size.width
 #define viewHeight self.window.frame.size.height
@@ -67,7 +67,7 @@
     [self.tabBarController.tabBar addSubview:photoButton];
     
 }
-
+#pragma mark - 拍照按钮
 - (void)addOrderView
 {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil
@@ -78,10 +78,78 @@
     [sheet showInView:self.tabBarController.view];
 }
 
+#pragma mark - UIActionSheet delegat method
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    self.pickerController = [[UIImagePickerController alloc] init];
+    
+    if (buttonIndex == 0) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            self.pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            self.pickerController.allowsEditing = NO;
+            
+            self.pickerController.delegate = self;
+            [self.tabBarController presentViewController:self.pickerController animated:YES completion:nil];
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"错误" message:@"无法获取相机" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alert show];
+            return;
+        }
+    }else if(buttonIndex == 1){
+        self.pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        self.pickerController.delegate = self;
+        [self.tabBarController presentViewController:self.pickerController animated:YES completion:nil];
+    }
+}
+
+
+#pragma mark - UIImagePickerController delegate method
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    CGSize imageSize = image.size;
+    imageSize.height = 626;
+    imageSize.width = 213;
+    image = [self imageWithImage:image scaledToSize:imageSize];
+    
+    
+    if (self.pickerController.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GBMPublish" bundle:nil];
+        GBMPublishViewController *publish = [storyboard instantiateViewControllerWithIdentifier:@"CMJ"];
+        publish.tag = 2;
+        publish.publishPhoto = image;
+        [picker pushViewController:publish animated:YES];
+    }else{
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"GBMPublish" bundle:nil];
+        GBMPublishViewController *publish = [storyboard instantiateViewControllerWithIdentifier:@"CMJ"];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:publish];
+        publish.tag = 1;
+        publish.imagePicker = picker;
+        publish.publishPhoto = image;
+        [picker presentViewController:navigationController animated:YES completion:nil];
+    }
+    
+}
+
+#pragma mark - 图片压缩
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
+{
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+
+
+
+
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
     return YES;
 }
 
