@@ -56,7 +56,7 @@
     self.titleButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.titleButton setTitle:@"全部" forState:UIControlStateNormal];
     self.titleButton.frame = CGRectMake(0, 0, 200, 35);
-//    [self.titleButton addTarget:self action:@selector(titleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.titleButton addTarget:self action:@selector(titleButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.titleButton setImage:[UIImage imageNamed:@"icon_arrow_down"] forState:UIControlStateNormal];
     self.titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, 133, 0, 0);
@@ -179,7 +179,41 @@
 
 
 
-
+- (void)titleButtonClicked:(UIButton *)button
+{
+    NSArray *menuItems =
+    @[
+      [KxMenuItem menuItem:@" 显示全部"
+                     image:nil
+                    target:self
+                    action:@selector(requestAllData)],
+      
+      [KxMenuItem menuItem:@"附近500米"
+                     image:nil
+                    target:self
+                    action:@selector(request500kilometerData)],
+      [KxMenuItem menuItem:@"附近1000米"
+                     image:nil
+                    target:self
+                    action:@selector(request1000kilometerData)],
+      [KxMenuItem menuItem:@"附近1500米"
+                     image:nil
+                    target:self
+                    action:@selector(request1000kilometerData)],
+      
+      ];
+    
+    
+    UIButton *btn = (UIButton *)button;
+    CGRect editImageFrame = btn.frame;
+    
+    UIView *targetSuperview = btn.superview;
+    CGRect rect = [targetSuperview convertRect:editImageFrame toView:[[UIApplication sharedApplication] keyWindow]];
+    
+    [KxMenu showMenuInView:[[UIApplication sharedApplication] keyWindow]
+                  fromRect:rect
+                 menuItems:menuItems];
+}
 
 
 
