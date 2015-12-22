@@ -47,9 +47,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    //存放返回数据
     self.locationDic = [NSMutableDictionary dictionary];
     
+    //locationManager初始化和一些准备设置
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    //距离过滤器，位置的改变不会每一次都去通知委托，而是在移动了足够的距离时才会通知委托程序，单位是米
+    self.locationManager.distanceFilter = 1000.0f;
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >=8.0) {
+        [_locationManager requestWhenInUseAuthorization];
+    }
+    if ([CLLocationManager locationServicesEnabled]) {
+        [self.locationManager startUpdatingLocation];
+        NSLog(@"latitude is %f",self.locationManager.location.coordinate.latitude);
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"错误" message:@"定位失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        [alert show];
+    }
     
     
     //NavigationBar的设置
@@ -145,13 +162,6 @@
 }
 
 
-- (void)requestAllData
-{
-    NSDictionary *paramDic = @{@"user_id":[GBMGlobal shareGlobal].user.userId, @"token":[GBMGlobal shareGlobal].user.token, @"longitude":@"121.47794", @"latitude":@"31.22516", @"distance":@"1000"};
-    
-    GBMSquareRequest *squareRequest = [[GBMSquareRequest alloc] init];
-    [squareRequest sendSquareRequestWithParameter:paramDic delegate:self];
-}
 
 - (void)squareRequestSuccess:(GBMSquareRequest *)request dictionary:(NSDictionary *)dictionary
 {
@@ -179,6 +189,55 @@
 
 
 
+
+
+#pragma mark - CLLocationManagerDelegate Methods
+//位置更新时触发
+
+
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    //获取经纬度
+    self.locationDic = [NSMutableDictionary dictionary];
+    NSLog(@"纬度:%f",newLocation.coordinate.latitude);
+    NSLog(@"经度:%f",newLocation.coordinate.longitude);
+    NSString *latitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.latitude];
+    NSString *longitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.longitude];
+    [self.locationDic setValue:latitude forKey:@"latitude"];
+    [self.locationDic setValue:longitude forKey:@"longitude"];
+    CLLocationDegrees latitude2  = newLocation.coordinate.latitude;
+    CLLocationDegrees longitude2 = newLocation.coordinate.longitude;
+    
+    
+    CLLocation *c = [[CLLocation alloc] initWithLatitude:latitude2 longitude:longitude2];
+    //创建位置
+    CLGeocoder *revGeo = [[CLGeocoder alloc] init];
+    [revGeo reverseGeocodeLocation:c
+     //方向地理编码
+                 completionHandler:^(NSArray *placemarks,NSError *error){
+                     if (!error && [placemarks count] > 0) {
+                         NSDictionary *dict = [[placemarks objectAtIndex:0] addressDictionary];
+                         NSLog(@"street address:%@",[dict objectForKey:@"Street"]);
+                         [self.locationDic setValue:dict[@"Name"] forKey:@"location"];
+                     }else{
+                         NSLog(@"ERROR:%@",error);
+                     }
+                 }];
+    
+    //停止更新
+    [manager stopUpdatingLocation];
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"error:%@",error);
+}
+
+#pragma mark - 搜索附近功
+
+//附近搜索功能
 - (void)titleButtonClicked:(UIButton *)button
 {
     NSArray *menuItems =
@@ -214,6 +273,23 @@
                   fromRect:rect
                  menuItems:menuItems];
 }
+
+- (void)requestAllData
+{
+    NSDictionary *paramDic = @{@"user_id":[GBMGlobal shareGlobal].user.userId, @"token":[GBMGlobal shareGlobal].user.token, @"longitude":@"121.47794", @"latitude":@"31.22516", @"distance":@"1000"};
+    
+    GBMSquareRequest *squareRequest = [[GBMSquareRequest alloc] init];
+    [squareRequest sendSquareRequestWithParameter:paramDic delegate:self];
+}
+
+
+- (void)request1000kilometerData
+{
+    NSDictionary *paramDic = @{@"user_id":[GBMGlobal shareGlobal].user.userId, @"token":[GBMGlobal shareGlobal].user.token, @"longitude":[self.locationDic valueForKey:@"longitude"], @"latitude":[self.locationDic valueForKey:@"latitude"], @"distance":@"1000"};
+    
+    GBMSquareRequest *squareRequest = [[GBMSquareRequest alloc] init];
+    [squareRequest sendSquareRequestWithParameter:paramDic delegate:self];}
+
 
 
 

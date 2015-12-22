@@ -18,8 +18,12 @@
 {
     NSString *localEmail;
     NSString *localPassword;
+    BOOL keyboardOpen;
+    CGFloat keyboardOffSet;
+
 }
 @property (nonatomic,strong) GBMLoginRequest *loginRequest;
+@property (nonatomic, strong) UITextField *textView;
 
 @end
 
@@ -157,6 +161,39 @@
 - (void) loginRequestFailed:(GBMLoginRequest *)request error:(NSError *)error
 {
     NSLog(@"登陆错误原因：%@",error);
+}
+
+#pragma mark ---弹出键盘时适应
+- (void)keyboardWillChangeFrame:(NSNotification *)notification
+{
+    if (keyboardOpen == NO) {
+        NSDictionary *info = [notification userInfo];
+        CGFloat duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+        CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        //    CGFloat yOffset = endKeyboardRect.origin.y - beginKeyboardRect.origin.y;
+        CGFloat keyboardHeight = endKeyboardRect.origin.y;
+        CGRect textViewRect  = self.textView.frame;
+        CGFloat textViewHeight = textViewRect.origin.y+textViewRect.size.height;
+        keyboardOffSet = textViewHeight - keyboardHeight;
+        CGFloat newy = textViewRect.origin.y - keyboardOffSet;
+        if (textViewHeight > keyboardHeight) {
+            [UIView animateWithDuration:duration animations:^{
+                [self.view setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-keyboardOffSet, self.view.frame.size.width, self.view.frame.size.height)];
+            }];
+            [self.textView setFrame:CGRectMake(textViewRect.origin.x, newy, textViewRect.size.width, textViewRect.size.height)];
+            keyboardOpen = YES;
+        }
+    }
+    
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification{
+    if (keyboardOpen == YES) {
+        [UIView animateWithDuration:1 animations:^{
+            [self.view setFrame:CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y+keyboardOffSet, self.view.frame.size.width, self.view.frame.size.height)];
+        }];
+        keyboardOpen = NO;
+    }
 }
 
 @end

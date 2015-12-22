@@ -37,9 +37,9 @@
     [form addValue:userId forField:@"user_id"];
     [form addValue:data forField:@"data"];
     [form addValue:title forField:@"title"];
-    [form addValue:@"" forField:@"location"];
-    [form addValue:@"" forField:@"longitude"];
-    [form addValue:@"" forField:@"latitude"];
+//    [form addValue:@"" forField:@"location"];
+    [form addValue:longitude forField:@"longitude"];
+    [form addValue:latitude forField:@"latitude"];
     
     
     request.HTTPBody = [form httpBody];

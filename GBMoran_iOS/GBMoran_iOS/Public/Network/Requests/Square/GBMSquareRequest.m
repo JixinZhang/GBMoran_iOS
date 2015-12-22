@@ -51,7 +51,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSString *string = [[NSString alloc] initWithData:self.receivedData encoding:NSUTF8StringEncoding];
-    NSLog(@"Square receive data string:%@", string);
+//    NSLog(@"Square receive data string:%@", string);
     
     GBMSquareRequestParser *parser = [[GBMSquareRequestParser alloc] init];
     if ([_delegate respondsToSelector:@selector(squareRequestSuccess:dictionary:)]) {

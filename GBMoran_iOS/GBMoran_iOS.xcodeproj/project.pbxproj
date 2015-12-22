@@ -60,6 +60,8 @@
 		78600EEF1BDD0A83006E6653 /* GBMViewDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78600EEE1BDD0A83006E6653 /* GBMViewDetailModel.m */; };
 		78600EF21BDD0BC0006E6653 /* UIColor+AddColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 78600EF11BDD0BC0006E6653 /* UIColor+AddColor.m */; };
 		78600EF51BDD0C05006E6653 /* GBMCommentListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78600EF41BDD0C05006E6653 /* GBMCommentListCell.m */; };
+		78646B081C22E75D00A225F0 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78646B071C22E75D00A225F0 /* CoreLocation.framework */; };
+		78646B0A1C22E76D00A225F0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78646B091C22E76D00A225F0 /* MapKit.framework */; };
 		787BBB451BE268DB00918123 /* GBMPublishCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 787BBB431BE268DB00918123 /* GBMPublishCell.m */; };
 		787BBB461BE268DB00918123 /* GBMPublishCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 787BBB441BE268DB00918123 /* GBMPublishCell.xib */; };
 		789158391BD20DC500FB43C1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 789158381BD20DC500FB43C1 /* main.m */; };
@@ -207,6 +209,8 @@
 		78600EF11BDD0BC0006E6653 /* UIColor+AddColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+AddColor.m"; sourceTree = "<group>"; };
 		78600EF31BDD0C05006E6653 /* GBMCommentListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBMCommentListCell.h; sourceTree = "<group>"; };
 		78600EF41BDD0C05006E6653 /* GBMCommentListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBMCommentListCell.m; sourceTree = "<group>"; };
+		78646B071C22E75D00A225F0 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		78646B091C22E76D00A225F0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		787BBB421BE268DB00918123 /* GBMPublishCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBMPublishCell.h; sourceTree = "<group>"; };
 		787BBB431BE268DB00918123 /* GBMPublishCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBMPublishCell.m; sourceTree = "<group>"; };
 		787BBB441BE268DB00918123 /* GBMPublishCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GBMPublishCell.xib; sourceTree = "<group>"; };
@@ -268,6 +272,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78646B0A1C22E76D00A225F0 /* MapKit.framework in Frameworks */,
+				78646B081C22E75D00A225F0 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +467,8 @@
 		7891582A1BD20DC500FB43C1 = {
 			isa = PBXGroup;
 			children = (
+				78646B091C22E76D00A225F0 /* MapKit.framework */,
+				78646B071C22E75D00A225F0 /* CoreLocation.framework */,
 				789158351BD20DC500FB43C1 /* GBMoran_iOS */,
 				7891584F1BD20DC500FB43C1 /* GBMoran_iOSTests */,
 				789158341BD20DC500FB43C1 /* Products */,

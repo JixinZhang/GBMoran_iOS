@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GBMPublishRequest.h"
 
-@interface GBMPublishViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface GBMPublishViewController : UIViewController<UITextViewDelegate,UITableViewDataSource,UITableViewDelegate,GBMPublishRequestDelegate,UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UILabel *numberLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+
 @property (assign,nonatomic)NSInteger tag;
 @property (strong,nonatomic)UIImage *publishPhoto;
 @property (strong,nonatomic)UIImagePickerController *imagePicker;

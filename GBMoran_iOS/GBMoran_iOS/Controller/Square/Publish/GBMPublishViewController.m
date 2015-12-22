@@ -12,21 +12,27 @@
 #import "GBMUserModel.h"
 #import "GBMGlobal.h"
 #import "AppDelegate.h"
+#import <CoreLocation/CoreLocation.h>
 
 #define selfWidth  self.view.frame.size.width
 #define selfHeight self.view.frame.size.height
 
-@interface GBMPublishViewController ()<GBMPublishRequestDelegate>
+@interface GBMPublishViewController ()<CLLocationManagerDelegate>
 {
     BOOL openOrNot;
+    BOOL keyboardOpen;
+    CGFloat keyboardOffSet;
+    UIActivityIndicatorView *activity;
 }
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) UIControl *blackView;
+@property (nonatomic,strong) CLLocationManager *locationManager;
+@property (nonatomic,strong) NSMutableDictionary *locationDic;
 @end
 
 @implementation GBMPublishViewController
 
-//发布按钮
+#pragma mark - makePublishButton
 - (void)makePublishButton
 {
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 65, 0, 50, 40)];
@@ -40,9 +46,34 @@
     [self.navigationController.navigationBar addSubview:button];
 }
 
+
+
+
+#pragma mark - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //生成发布按钮
     [self makePublishButton];
+    //生成返回按钮
+    [self MakeBackButton];
+    //获取地理位置
+    [self getLatitudeAndLongitude];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(observeLocationValue:) name:@"observeLocationValue" object:nil];
+    
+    activity = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    CGFloat width = self.view.frame.size.width/2.0;
+    [activity setCenter:CGPointMake(width, 160)];
+    [activity setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [self.view addSubview:activity];
+
+    self.photoView.image = self.publishPhoto;
+    [self.view bringSubviewToFront:self.textView];
+    keyboardOpen = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    
     self.navigationController.navigationBar.backgroundColor = [[UIColor alloc] initWithRed:230/255.0 green:106/255.0 blue:58/255.0 alpha:1];
     self.navigationController.navigationBar.barTintColor =[[UIColor alloc] initWithRed:230/255.0 green:106/255.0 blue:58/255.0 alpha:1];
     self.textView.delegate = self;
@@ -52,10 +83,15 @@
     label.textColor = [UIColor whiteColor];
     [self.navigationController.navigationBar  addSubview:label];
     
-    self.photoView.image = self.publishPhoto;
+    self.numberLabel.backgroundColor = [UIColor lightGrayColor];
+    [self.numberLabel bringSubviewToFront:self.textView];
+    
 }
 
+
+#pragma mark - 限制字长&placeHolder
 //限制字长，文字计数
+
 - (void)textViewDidChange:(UITextView *)textView
 {
     if (textView.text.length >25) {
@@ -89,11 +125,22 @@
     [self.textView resignFirstResponder];
 }
 
+
+
+
+
 #pragma mark - 重新拍摄响应
 - (IBAction)returnToCamera:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [delegate addOrderView];
+    [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+
+
 #pragma mark - 重新定位响应
 - (IBAction)publishLocation:(id)sender
 {
@@ -101,6 +148,76 @@
 }
 
 
+
+
+#pragma mark - 定位服务
+#pragma mark - 获取经纬度
+- (void)getLatitudeAndLongitude
+{
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    //位置移动至少1000m在通知委托处理更行
+    self.locationManager.distanceFilter = 1000.0f;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >=8.0) {
+        [_locationManager requestWhenInUseAuthorization];
+    }
+    
+    if ([CLLocationManager locationServicesEnabled]) {
+        [self.locationManager startUpdatingLocation];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"错误" message:@"定位失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        [alert show];
+    }
+}
+
+
+#pragma  mark - CLLocationManagerDelegate
+//位置发生改变时触发
+//- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+//{
+//    
+//}
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    self.locationDic = [NSMutableDictionary dictionary];
+    NSLog(@"纬度:%f",newLocation.coordinate.latitude);
+    NSLog(@"经度:%f",newLocation.coordinate.longitude);
+    NSString *latitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.latitude];
+    NSString *longitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.longitude];
+    [self.locationDic setValue:latitude forKey:@"latitude"];
+    [self.locationDic setValue:longitude forKey:@"longitude"];
+    CLLocationDegrees latitudeD = newLocation.coordinate.latitude;
+    CLLocationDegrees longitudeD = newLocation.coordinate.longitude;
+    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:latitudeD longitude:longitudeD];
+    CLGeocoder *revGeo = [[CLGeocoder alloc] init];
+    [revGeo reverseGeocodeLocation:currentLocation
+     
+                 completionHandler:^(NSArray *placemarks,NSError *error){
+                     if (!error && [placemarks count] > 0) {
+                         NSDictionary *dict = [[placemarks objectAtIndex:0] addressDictionary];
+                         NSLog(@"street address:%@",[dict objectForKey:@"Street"]);
+                         self.locationLabel.text = [NSString stringWithFormat:@"%@%@%@",dict[@"City"],dict[@"SubLocality"],dict[@"Street"]];
+                     }else{
+                         NSLog(@"ERROR:%@",error);
+                     }
+                 }];
+    [manager stopUpdatingLocation];
+    
+}
+
+
+//定位失败
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"定位失败，原因：%@",error);
+}
+
+
+
+
+#pragma mark - 详细的定位列表
 #pragma mark - makeTableView
 - (void)makeTableView
 {
@@ -139,6 +256,7 @@
     }
 }
 
+
 #pragma mark - tableView的Delegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -172,14 +290,19 @@
     }
 }
 
-#pragma mark - 发布照片事件
+
+
+
+#pragma mark - 发布照片
+#pragma mark - 点击发布按钮
 - (void)publishPhotoButtonClicked:(id)sender
 {
-    NSData *data = UIImageJPEGRepresentation(self.photoView.image, 1.0);
+    NSData *data = UIImageJPEGRepresentation(self.photoView.image, 0.00001);
     GBMPublishRequest *request = [[GBMPublishRequest alloc] init];
     GBMUserModel *user = [GBMGlobal shareGlobal].user;
-    [request sendLoginRequestWithUserId:user.userId token:user.token longitude:@"1" latitude:@"1" title:self.textView.text data:data delegate:self];
+    [request sendLoginRequestWithUserId:user.userId token:user.token longitude:@"121.48" latitude:@"31.2" title:self.textView.text data:data delegate:self];
 }
+
 
 #pragma mark - 发布照片请求成功
 - (void)requestSuccess:(GBMPublishRequest *)request picId:(NSString *)picId
@@ -190,6 +313,7 @@
     [appDelegate loadMainViewWithController:self];
 }
 
+
 #pragma mark - 发布照片请求失败
 - (void)requestFailed:(GBMPublishRequest *)request error:(NSError *)error
 {
@@ -199,6 +323,62 @@
 
 
 
+
+#pragma mark - 返回按键
+#pragma mark - BackButton
+- (void)MakeBackButton
+{
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"返回"
+                                                                     style:UIBarButtonItemStylePlain
+                                                                    target:self
+                                                                    action:@selector(cancelAction:)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
+}
+
+
+#pragma mark - 返回动作
+- (void)cancelAction:(id)sender
+{
+    if (self.tag == 1) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
+    }else if (self.tag == 2){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+
+
+
+#pragma mark ---弹出键盘时适应
+- (void)keyboardWillChangeFrame:(NSNotification *)notification
+{
+    if (keyboardOpen == NO) {
+        NSDictionary *info = [notification userInfo];
+        CGFloat duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+        CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        //    CGFloat yOffset = endKeyboardRect.origin.y - beginKeyboardRect.origin.y;
+        CGFloat keyboardHeight = endKeyboardRect.origin.y;
+        CGRect textViewRect  = self.textView.frame;
+        CGFloat textViewHeight = textViewRect.origin.y+textViewRect.size.height;
+        keyboardOffSet = textViewHeight - keyboardHeight;
+        [UIView animateWithDuration:duration animations:^{
+            [self.view setFrame:CGRectMake(self.view.frame.origin.x,self.view.frame.origin.y-keyboardOffSet, self.view.frame.size.width, self.view.frame.size.height)];
+        }];
+        
+        keyboardOpen = YES;
+    }
+    
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification{
+    if (keyboardOpen == YES) {
+        [UIView animateWithDuration:1 animations:^{
+            [self.view setFrame:CGRectMake(self.view.frame.origin.x,self.view.frame.origin.y+keyboardOffSet, self.view.frame.size.width, self.view.frame.size.height)];
+        }];
+        keyboardOpen = NO;
+    }
+}
 
 
 @end
