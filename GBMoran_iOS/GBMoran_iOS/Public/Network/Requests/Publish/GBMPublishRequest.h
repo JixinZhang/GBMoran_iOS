@@ -27,6 +27,7 @@
                              token:(NSString *)token
                          longitude:(NSString *)longitude
                           latitude:(NSString *)latitude
+                          location:(NSString *)locaiton
                              title:(NSString *)title
                               data:(NSData *)data
                           delegate:(id<GBMPublishRequestDelegate>)delegate;

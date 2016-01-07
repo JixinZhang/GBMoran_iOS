@@ -17,7 +17,14 @@
 
 @implementation GBMPublishRequest
 
-- (void)sendLoginRequestWithUserId:(NSString *)userId token:(NSString *)token longitude:(NSString *)longitude latitude:(NSString *)latitude title:(NSString *)title data:(NSData *)data delegate:(id<GBMPublishRequestDelegate>)delegate
+- (void)sendLoginRequestWithUserId:(NSString *)userId
+                             token:(NSString *)token
+                         longitude:(NSString *)longitude
+                          latitude:(NSString *)latitude
+                          location:(NSString *)locaiton
+                             title:(NSString *)title
+                              data:(NSData *)data
+                          delegate:(id<GBMPublishRequestDelegate>)delegate
 {
     [self.urlConnection cancel];
     
@@ -37,9 +44,11 @@
     [form addValue:userId forField:@"user_id"];
     [form addValue:data forField:@"data"];
     [form addValue:title forField:@"title"];
-//    [form addValue:@"" forField:@"location"];
+    [form addValue:locaiton forField:@"location"];
     [form addValue:longitude forField:@"longitude"];
     [form addValue:latitude forField:@"latitude"];
+    [form addValue:locaiton forField:@"addr"];
+
     
     
     request.HTTPBody = [form httpBody];

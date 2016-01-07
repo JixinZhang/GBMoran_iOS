@@ -27,7 +27,7 @@
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) UIControl *blackView;
 @property (nonatomic,strong) CLLocationManager *locationManager;
-@property (nonatomic,strong) NSMutableDictionary *locationDic;
+@property (nonatomic,strong) NSMutableDictionary *locationDictionary;
 @end
 
 @implementation GBMPublishViewController
@@ -181,13 +181,13 @@
 //}
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    self.locationDic = [NSMutableDictionary dictionary];
+    self.locationDictionary = [NSMutableDictionary dictionary];
     NSLog(@"纬度:%f",newLocation.coordinate.latitude);
     NSLog(@"经度:%f",newLocation.coordinate.longitude);
     NSString *latitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.latitude];
     NSString *longitude = [NSString stringWithFormat:@"%f",newLocation.coordinate.longitude];
-    [self.locationDic setValue:latitude forKey:@"latitude"];
-    [self.locationDic setValue:longitude forKey:@"longitude"];
+    [self.locationDictionary setValue:latitude forKey:@"latitude"];
+    [self.locationDictionary setValue:longitude forKey:@"longitude"];
     CLLocationDegrees latitudeD = newLocation.coordinate.latitude;
     CLLocationDegrees longitudeD = newLocation.coordinate.longitude;
     CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:latitudeD longitude:longitudeD];
@@ -199,6 +199,7 @@
                          NSDictionary *dict = [[placemarks objectAtIndex:0] addressDictionary];
                          NSLog(@"street address:%@",[dict objectForKey:@"Street"]);
                          self.locationLabel.text = [NSString stringWithFormat:@"%@%@%@",dict[@"City"],dict[@"SubLocality"],dict[@"Street"]];
+                         [self.locationDictionary setValue:dict[@"Name"] forKey:@"location"];
                      }else{
                          NSLog(@"ERROR:%@",error);
                      }
@@ -300,7 +301,18 @@
     NSData *data = UIImageJPEGRepresentation(self.photoView.image, 0.00001);
     GBMPublishRequest *request = [[GBMPublishRequest alloc] init];
     GBMUserModel *user = [GBMGlobal shareGlobal].user;
-    [request sendLoginRequestWithUserId:user.userId token:user.token longitude:@"121.48" latitude:@"31.2" title:self.textView.text data:data delegate:self];
+    [request sendLoginRequestWithUserId:user.userId
+                                  token:user.token
+                              longitude:[_locationDictionary valueForKey:@"longitude"]
+                               latitude:[_locationDictionary valueForKey:@"latitude"]
+                               location:self.locationLabel.text //[_locationDictionary valueForKey:@"location"]
+                                  title:self.textView.text
+                                   data:data
+                               delegate:self];
+    if ([activity isAnimating]) {
+        [activity stopAnimating];
+    }
+    [activity startAnimating];
 }
 
 
@@ -308,17 +320,31 @@
 - (void)requestSuccess:(GBMPublishRequest *)request picId:(NSString *)picId
 {
     [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
-    [self dismissViewControllerAnimated:YES completion:nil];
-    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate loadMainViewWithController:self];
+    
+    if (self.tag == 1) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        [self.imagePicker dismissViewControllerAnimated:YES completion:nil];
+    }else if (self.tag == 2){
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
+    [activity stopAnimating];
+    
+//    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+//    [appDelegate loadMainViewWithController:self];
 }
 
 
 #pragma mark - 发布照片请求失败
 - (void)requestFailed:(GBMPublishRequest *)request error:(NSError *)error
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"错误" message:@"请重试" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"错误"
+                                                    message:@"请重试"
+                                                   delegate:self
+                                          cancelButtonTitle:@"确定"
+                                          otherButtonTitles:@"取消", nil];
     [alert show];
+    [activity stopAnimating];
 }
 
 

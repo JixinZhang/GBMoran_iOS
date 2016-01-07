@@ -251,14 +251,14 @@
                      image:nil
                     target:self
                     action:@selector(request500kilometerData)],
-      [KxMenuItem menuItem:@"附近1000米"
+      [KxMenuItem menuItem:@"附近5000米"
                      image:nil
                     target:self
-                    action:@selector(request1000kilometerData)],
-      [KxMenuItem menuItem:@"附近1500米"
+                    action:@selector(request5000kilometerData)],
+      [KxMenuItem menuItem:@"附近10000米"
                      image:nil
                     target:self
-                    action:@selector(request1000kilometerData)],
+                    action:@selector(request10000kilometerData)],
       
       ];
     
@@ -276,21 +276,28 @@
 
 - (void)requestAllData
 {
-    NSDictionary *paramDic = @{@"user_id":[GBMGlobal shareGlobal].user.userId, @"token":[GBMGlobal shareGlobal].user.token, @"longitude":@"121.47794", @"latitude":@"31.22516", @"distance":@"1000"};
+    NSDictionary *paramDic = @{@"user_id":[GBMGlobal shareGlobal].user.userId, @"token":[GBMGlobal shareGlobal].user.token, @"longitude":@"121.47794", @"latitude":@"31.22516", @"distance":@"10000"};
     
     GBMSquareRequest *squareRequest = [[GBMSquareRequest alloc] init];
     [squareRequest sendSquareRequestWithParameter:paramDic delegate:self];
 }
 
 
-- (void)request1000kilometerData
+- (void)request5000kilometerData
 {
-    NSDictionary *paramDic = @{@"user_id":[GBMGlobal shareGlobal].user.userId, @"token":[GBMGlobal shareGlobal].user.token, @"longitude":[self.locationDic valueForKey:@"longitude"], @"latitude":[self.locationDic valueForKey:@"latitude"], @"distance":@"1000"};
+    NSDictionary *paramDic = @{@"user_id":[GBMGlobal shareGlobal].user.userId, @"token":[GBMGlobal shareGlobal].user.token, @"longitude":[_locationDic valueForKey:@"longitude"], @"latitude":[_locationDic valueForKey:@"latitude"], @"distance":@"5000"};
     
     GBMSquareRequest *squareRequest = [[GBMSquareRequest alloc] init];
-    [squareRequest sendSquareRequestWithParameter:paramDic delegate:self];}
+    [squareRequest sendSquareRequestWithParameter:paramDic delegate:self];
+}
 
-
+- (void)request10000kilometerData
+{
+    NSDictionary *paramDic = @{@"user_id":[GBMGlobal shareGlobal].user.userId, @"token":[GBMGlobal shareGlobal].user.token, @"longitude":[_locationDic valueForKey:@"longitude"], @"latitude":[_locationDic valueForKey:@"latitude"], @"distance":@"10000"};
+    
+    GBMSquareRequest *squareRequest = [[GBMSquareRequest alloc] init];
+    [squareRequest sendSquareRequestWithParameter:paramDic delegate:self];
+}
 
 
 
